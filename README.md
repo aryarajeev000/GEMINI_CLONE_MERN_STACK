@@ -55,7 +55,7 @@ Start the development server:
 Bash
 
 npm run dev
-Open your web browser and navigate to http://localhost:[PORT_NUMBER].
+Open your web browser and navigate to http://localhost:8000.
 
 🤝 Contribution
 We welcome contributions! Please refer to the [CONTRIBUTING.md] for guidelines on submitting pull requests.
