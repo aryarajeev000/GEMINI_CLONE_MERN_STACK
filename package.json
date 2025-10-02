@@ -1,0 +1,17 @@
+{
+  "name": "chat-gpt-clone",
+  "version": "1.0.0",
+  "description": "A conversational AI model built to replicate the functionality and interface of Google's Gemini.\r This project aims to provide a fast, responsive, and powerful user interface for interacting with a large language model, demonstrating key features like multi-turn conversations, code generation, and factual search integration.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "npm start --prefix ./Backend",
+    "client": "npm start --prefix ./Frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "Rajeev Sutrakar",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

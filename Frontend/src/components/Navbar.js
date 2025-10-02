@@ -29,7 +29,7 @@ const Navbar = () => {
       sx={{ boxShadow: 3, mb: 2 }}
     >
       <Typography variant="h1" color="primary" fontWeight="bold">
-        AI GPT3 Clone
+        AI GEMINI 2.5 CLONE
       </Typography>
       {loggedIn ? (
         <>
