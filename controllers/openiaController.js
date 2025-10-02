@@ -15,7 +15,7 @@ const generateText = async (prompt, model, max_tokens, temperature) => {
     config: {
       maxOutputTokens: max_tokens,
       temperature: temperature,
-    }
+    },
   });
   return response.text;
 };
@@ -28,20 +28,22 @@ const generateText = async (prompt, model, max_tokens, temperature) => {
 exports.summaryController = async (req, res) => {
   try {
     const { text } = req.body;
-    
+
     const summaryPrompt = `Summarize this text: \n\n${text}`;
-    
+
     const resultText = await generateText(
       summaryPrompt,
       "gemini-2.5-flash",
-      500, 
-      0.5  
+      500,
+      0.5
     );
 
     if (resultText) {
       return res.status(200).json(resultText.trim());
     } else {
-      return res.status(500).json({ message: "Summary generation failed or returned no text." });
+      return res
+        .status(500)
+        .json({ message: "Summary generation failed or returned no text." });
     }
   } catch (err) {
     console.error(err);
@@ -56,20 +58,22 @@ exports.summaryController = async (req, res) => {
 exports.paragraphController = async (req, res) => {
   try {
     const { text } = req.body;
-    
+
     const paragraphPrompt = `Write a detailed paragraph about the following topic: \n\n${text}`;
-    
+
     const resultText = await generateText(
       paragraphPrompt,
       "gemini-2.5-flash",
-      500, 
-      0.5  
+      500,
+      0.5
     );
 
     if (resultText) {
       return res.status(200).json(resultText.trim());
     } else {
-      return res.status(500).json({ message: "Paragraph generation failed or returned no text." });
+      return res
+        .status(500)
+        .json({ message: "Paragraph generation failed or returned no text." });
     }
   } catch (err) {
     console.error(err);
@@ -84,25 +88,27 @@ exports.paragraphController = async (req, res) => {
 exports.chatbotController = async (req, res) => {
   try {
     const { text } = req.body;
-    
-    const chatPrompt = `Answer the following question in the style of Yoda from Star Wars.
-      Me: 'What is your name?'
-      Yoda: 'Yoda is my name.'
-      Me: '${text}'
-      Yoda:`; 
-    
+
+    // CHANGE: Use a more robust, single-line instruction prompt
+    const chatPrompt = `You are a character named Yoda from Star Wars. Respond to the following user message in the distinct speaking style of Yoda: "${text}"`;
+
     const resultText = await generateText(
       chatPrompt,
       "gemini-2.5-flash",
-      300, 
-      0.7  
+      300,
+      0.7
     );
 
     if (resultText) {
-      const cleanedText = resultText.trim().replace(/^yoda: /i, '').trim(); 
+      const cleanedText = resultText
+        .trim()
+        .replace(/^yoda: /i, "")
+        .trim();
       return res.status(200).json(cleanedText);
     } else {
-      return res.status(500).json({ message: "Chatbot response failed or returned no text." });
+      return res
+        .status(500)
+        .json({ message: "Chatbot response failed or returned no text." });
     }
   } catch (err) {
     console.error(err);
@@ -117,21 +123,23 @@ exports.chatbotController = async (req, res) => {
 exports.jsconverterController = async (req, res) => {
   try {
     const { text } = req.body;
-    
+
     const converterPrompt = `Convert the following instructions into complete, functional JavaScript code. Wrap the code in standard markdown formatting with 'javascript'. Do not add any extra explanation or text outside the code block.
       Instructions: \n\n${text}`;
-    
+
     const resultText = await generateText(
       converterPrompt,
-      "gemini-2.5-flash", 
-      800, 
-      0.25 
+      "gemini-2.5-flash",
+      800,
+      0.25
     );
 
     if (resultText) {
       return res.status(200).json(resultText.trim());
     } else {
-      return res.status(500).json({ message: "Code conversion failed or returned no text." });
+      return res
+        .status(500)
+        .json({ message: "Code conversion failed or returned no text." });
     }
   } catch (err) {
     console.error(err);
@@ -145,7 +153,9 @@ exports.jsconverterController = async (req, res) => {
 // ## SCI-FI IMAGE CONTROLLER (Non-functional Placeholder)
 exports.scifiImageController = async (req, res) => {
   return res.status(501).json({
-    message: "Image generation is not supported by the current Google GenAI SDK.",
-    suggestion: "Use a dedicated Image API client (like Imagen) for image generation functionality."
+    message:
+      "Image generation is not supported by the current Google GenAI SDK.",
+    suggestion:
+      "Use a dedicated Image API client (like Imagen) for image generation functionality.",
   });
 };
